@@ -1,14 +1,14 @@
 export const products = [
-    {
+          {
         name: "Café Caramel con Chocolate",
         price: 59.9,
-        image: "cafe_01",
+        image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=400&fit=crop",
         categoryId: 1
       },
       {
         name: "Café Frio con Chocolate Grande",
         price: 49.9,
-        image: "cafe_02",
+        image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=400&h=400&fit=crop",
         categoryId: 1
       },
       {
@@ -212,7 +212,7 @@ export const products = [
       {
         name: "Hamburguesa de Pollo",
         price: 59.9,
-        image: "hamburguesas_02",
+        image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop",
         categoryId: 2
       },
       {

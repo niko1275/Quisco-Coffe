@@ -9,12 +9,18 @@ async function main() {
         // Crear categorías primero
         console.log("Creando categorías...")
         for (const category of categories) {
-            await prisma.category.create({
-                data: category
+            await prisma.category.upsert({
+                where: { slug: category.slug },
+                update: {},
+                create: category
             })
         }
         
         console.log("Creando productos...")
+        // Primero eliminar productos existentes
+        await prisma.product.deleteMany({})
+        
+        // Luego crear los nuevos productos
         await prisma.product.createMany({
             data: products
         })

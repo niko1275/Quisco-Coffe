@@ -21,10 +21,18 @@ export default function ProductCard({ id, name, price, image, categoryId }: Prod
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
       {/* Product Image */}
-      <div className="h-48 bg-gray-200 flex items-center justify-center">
-        <div className="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center">
-          <span className="text-3xl">🍽️</span>
-        </div>
+      <div className="h-48 bg-gray-200 flex items-center justify-center overflow-hidden">
+        {image && image.startsWith('http') ? (
+          <img 
+            src={image} 
+            alt={name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center">
+            <span className="text-3xl">🍽️</span>
+          </div>
+        )}
       </div>
 
       {/* Product Info */}

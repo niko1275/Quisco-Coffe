@@ -69,16 +69,15 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params
-
+    
     await prisma.product.delete({
-      where: {
-        id: parseInt(id)
-      }
+      where: { id: parseInt(id) }
     })
+
 
     return NextResponse.json({ message: 'Producto eliminado exitosamente' })
   } catch (error) {

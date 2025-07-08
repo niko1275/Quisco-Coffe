@@ -3,10 +3,11 @@ import { getCategoryBySlug } from '@/lib/data'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> } // ← Cambio aquí
 ) {
   try {
-    const category = await getCategoryBySlug(params.slug)
+    const { slug } = await params // ← Destructurar después del await
+    const category = await getCategoryBySlug(slug)
     
     if (!category) {
       return NextResponse.json(

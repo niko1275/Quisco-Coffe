@@ -21,13 +21,11 @@ interface Product {
     name: string
   }
 }
+interface PageProps {
+  params: Promise<{ id: string }>
+}
 
-export default async function EditProductPage({ 
-  params 
-}: { 
-  params: Promise<{ id: string }> 
-}) {
-  // Ahora await params funciona correctamente
+export default async function EditProductPage({ params }: PageProps) {
   const { id } = await params
   
   const [product, categories] = await Promise.all([
@@ -39,7 +37,6 @@ export default async function EditProductPage({
       orderBy: { name: 'asc' }
     })
   ])
-
   if (!product) {
     notFound()
   }

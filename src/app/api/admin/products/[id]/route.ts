@@ -31,10 +31,10 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> } // ← Cambio aquí
 ) {
   try {
-
+    const { id } = await params
     const body = await request.json()
     const { name, price, image, description, stock, categoryId, isActive } = body
 
@@ -49,7 +49,7 @@ export async function PATCH(
 
     const product = await prisma.product.update({
       where: {
-        id: parseInt(params.id)
+        id: parseInt(id)
       },
       data: updateData,
       include: {

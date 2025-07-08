@@ -3,7 +3,7 @@ import { MercadoPagoConfig, Preference } from 'mercadopago'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { useCartStore } from '@/store/cartStore'
+
 
 interface CartItem {
   id: number

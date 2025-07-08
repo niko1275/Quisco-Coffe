@@ -11,7 +11,7 @@ interface ProductCardProps {
   categoryId: number
 }
 
-export default function ProductCard({ id, name, price, image, categoryId }: ProductCardProps) {
+export default function ProductCard({ id, name, price, image }: ProductCardProps) {
   const { addToCartAndOpen } = useCart()
 
   const handleAddToCart = () => {

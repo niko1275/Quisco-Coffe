@@ -100,7 +100,7 @@ export default function SearchPage() {
           </h1>
           {query && (
             <p className="text-gray-600">
-              Mostrando {startIndex}-{endIndex} de {totalItems} productos encontrados para "{query}"
+              Mostrando {startIndex}-{endIndex} de {totalItems} productos encontrados para &quot;{query}&quot;
             </p>
           )}
         </div>
@@ -146,4 +146,4 @@ export default function SearchPage() {
       </main>
     </div>
   )
-} 
+}

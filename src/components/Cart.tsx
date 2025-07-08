@@ -35,7 +35,7 @@ export default function Cart() {
 
   useEffect(() => {
     verifyCart()
-  }, [orderId])
+  }, [orderId,verifyCart])
 
 
   const handleCheckout = async () => {

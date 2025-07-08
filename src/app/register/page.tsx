@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
 import Link from "next/link"
@@ -64,8 +64,8 @@ export default function RegisterPage() {
       } else {
         router.push("/")
       }
-    } catch (error: any) {
-      setError(error.message)
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Error desconocido")
     } finally {
       setLoading(false)
     }

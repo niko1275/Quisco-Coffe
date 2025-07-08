@@ -10,7 +10,7 @@ export default function PaymentSuccess() {
   const searchParams = useSearchParams()
   const orderId = searchParams.get('orderId')
   const { clearCart } = useCartStore()
-  const [order, setOrder] = useState<any>(null)
+ 
 
   useEffect(() => {
     // Limpiar el carrito cuando el pago es exitoso

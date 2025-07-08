@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, Upload, Save, X } from 'lucide-react'
+import { ArrowLeft, Save, X } from 'lucide-react'
 import Link from 'next/link'
 
 interface Category {

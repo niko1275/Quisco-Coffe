@@ -40,7 +40,7 @@ export default function LoginPage() {
         router.push("/")
       }
     } catch (error) {
-      setError("Error al iniciar sesión")
+      setError("Error al iniciar sesión" + error)
     } finally {
       setLoading(false)
     }

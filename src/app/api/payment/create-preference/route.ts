@@ -4,6 +4,18 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
+interface CartItem {
+  id: number
+  name: string
+  price: number
+  quantity: number
+}
+
+interface PaymentRequest {
+  items: CartItem[]
+  total: number
+}
+
 // Configurar Mercado Pago
 const client = new MercadoPagoConfig({ 
   accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN || 'test-token',
@@ -18,7 +30,7 @@ export async function POST(request: NextRequest) {
     console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL)
     
     const session = await getServerSession(authOptions)
-    const { items, total } = await request.json()
+    const { items, total }: PaymentRequest = await request.json()
 
     if (!items || items.length === 0) {
       return NextResponse.json(
@@ -33,7 +45,7 @@ export async function POST(request: NextRequest) {
         userId: session?.user?.id ? parseInt(session.user.id) : null,
         total: total,
         items: {
-          create: items.map((item: any) => ({
+          create: items.map((item: CartItem) => ({
             productId: item.id,
             quantity: item.quantity,
             price: item.price
@@ -51,11 +63,11 @@ export async function POST(request: NextRequest) {
 
     // Crear preferencia de pago en Mercado Pago
     const preference = {
-      items: items.map((item: any) => ({
+      items: items.map((item: CartItem) => ({
         id: item.id.toString(),
         title: item.name,
         quantity: item.quantity,
-        unit_price: parseInt(item.price),
+        unit_price: parseInt(item.price.toString()),
         currency_id: 'ARS'
       })),
       back_urls: {

@@ -2,25 +2,8 @@ import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import EditProductClient from '../EditProductClient'
 
-interface Category {
-  id: number
-  name: string
-  slug: string
-}
 
-interface Product {
-  id: number
-  name: string
-  price: number
-  image: string
-  description: string | null
-  stock: number
-  isActive: boolean
-  categoryId: number
-  category: {
-    name: string
-  }
-}
+
 interface PageProps {
   params: Promise<{ id: string }>
 }

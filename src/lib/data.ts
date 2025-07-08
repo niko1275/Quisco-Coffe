@@ -44,7 +44,11 @@ export async function getCategoryBySlug(slug: string) {
     const category = await prisma.category.findUnique({
       where: { slug },
       include: {
-        products: true
+        products: {
+          where: {
+            isActive: true
+          }
+        }
       }
     })
     return category

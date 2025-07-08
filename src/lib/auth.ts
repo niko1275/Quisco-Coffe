@@ -54,12 +54,13 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
-        const result = {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const result: any = {
           id: user.id.toString(),
           email: user.email,
           name: user.name,
           image: user.image,
-          role: (user as any).role,
+          role: user.role,
         }
 
         console.log("✅ Autorización exitosa:", result)
@@ -79,6 +80,7 @@ export const authOptions: NextAuthOptions = {
     error: "/login",
   },
   callbacks: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async jwt({ token, user }: { token: any; user: any }) {
       if (user) {
         token.id = user.id
@@ -86,6 +88,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async session({ session, token }: { session: any; token: any }) {
       if (session.user) {
         session.user.id = token.id as string

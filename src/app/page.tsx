@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import CategoryCard from '@/components/CategoryCard'
 import Header from '@/components/Header'
+import { useCart } from '@/hooks/useCart'
 
 interface Category {
   id: number
@@ -16,7 +17,7 @@ interface Category {
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
-
+  const { orderId } = useCart()
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -58,7 +59,7 @@ export default function Home() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            Bienvenido a QuioscoCafé
+            Bienvenido a QuioscoCafé xd
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Descubre nuestra deliciosa selección de café, donas, galletas y más. 

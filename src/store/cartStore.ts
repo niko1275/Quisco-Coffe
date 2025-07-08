@@ -10,6 +10,9 @@ interface CartItem {
 
 interface CartStore {
   items: CartItem[]
+  orderId: number | null
+  setOrderId: (id: number) => void
+  clearOrderId: () => void
   addToCart: (product: { id: number; name: string; price: number }) => void
   removeFromCart: (productId: number) => void
   updateQuantity: (productId: number, quantity: number) => void
@@ -22,6 +25,10 @@ export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [],
+      orderId: null,
+
+      setOrderId: (id) => set({ orderId: id }),
+      clearOrderId: () => set({ orderId: null }),
       
       addToCart: (product) => {
         set((state) => {
@@ -73,7 +80,7 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'cart-storage', // nombre para localStorage
-      partialize: (state) => ({ items: state.items }), // solo persistir items
+      partialize: (state) => ({ items: state.items, orderId: state.orderId }), // persistir items y orderId
     }
   )
 ) 

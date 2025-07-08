@@ -15,6 +15,9 @@ export const useCart = () => {
     ...uiStore,
     addToCartAndOpen,
     total: cartStore.getTotal(),
-    itemCount: cartStore.getItemCount()
+    itemCount: cartStore.getItemCount(),
+    orderId: cartStore.orderId,
+    setOrderId: cartStore.setOrderId,
+    clearOrderId: cartStore.clearOrderId
   }
 } 

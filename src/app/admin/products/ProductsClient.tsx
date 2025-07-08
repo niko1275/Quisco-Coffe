@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, Edit, Trash2, Eye, Search, Package } from 'lucide-react'
+import { Plus, Edit, Trash2, Search, Package } from 'lucide-react'
 import Link from 'next/link'
 
 interface Product {
@@ -122,7 +122,7 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
         <div>
           <select
             value={filterActive}
-            onChange={(e) => setFilterActive(e.target.value as any)}
+            onChange={(e) => setFilterActive(e.target.value as 'all' | 'active' | 'inactive')}
             className="px-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
           >
             <option value="all">Todos los productos</option>

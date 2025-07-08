@@ -3,6 +3,7 @@ import { MercadoPagoConfig, Preference } from 'mercadopago'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { useCartStore } from '@/store/cartStore'
 
 interface CartItem {
   id: number
@@ -17,7 +18,7 @@ interface PaymentRequest {
 }
 
 // Configurar Mercado Pago
-const client = new MercadoPagoConfig({ 
+export const client = new MercadoPagoConfig({ 
   accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN || 'test-token',
   options: {
     timeout: 5000,
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
   try {
     console.log('Access Token configured:', !!process.env.MERCADO_PAGO_ACCESS_TOKEN)
     console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL)
-    
+ 
     const session = await getServerSession(authOptions)
     const { items, total }: PaymentRequest = await request.json()
 
@@ -71,9 +72,9 @@ export async function POST(request: NextRequest) {
         currency_id: 'ARS'
       })),
       back_urls: {
-        success: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/payment/success?orderId=${order.id}`,
-        failure: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/payment/failure?orderId=${order.id}`,
-        pending: `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/payment/pending?orderId=${order.id}`
+        success: `${process.env.NEXTAUTH_URL || 'https://6b1f49c0d158.ngrok-free.app'}/payment/success?orderId=${order.id}`,
+        failure: `${process.env.NEXTAUTH_URL || 'https://6b1f49c0d158.ngrok-free.app'}/payment/failure?orderId=${order.id}`,
+        pending: `${process.env.NEXTAUTH_URL || 'https://6b1f49c0d158.ngrok-free.app'}/payment/pending?orderId=${order.id}`
       },
       external_reference: order.id.toString()
     }
@@ -88,9 +89,10 @@ export async function POST(request: NextRequest) {
     // Actualizar la orden con el preference ID
     await prisma.order.update({
       where: { id: order.id },
-      data: { preferenceId: response.id }
+      data: { preferenceId: response.external_reference }
     })
 
+  
     return NextResponse.json({
       preferenceId: response.id,
       initPoint: response.init_point,

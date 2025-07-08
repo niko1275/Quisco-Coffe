@@ -3,17 +3,47 @@
 import { X, Minus, Plus, ShoppingCart } from 'lucide-react'
 import { useCartStore } from '@/store/cartStore'
 import { useUIStore } from '@/store/uiStore'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 
 export default function Cart() {
-  const { items, removeFromCart, updateQuantity, getTotal, getItemCount, clearCart } = useCartStore()
+  const { items, updateQuantity, getTotal, getItemCount ,setOrderId,clearCart} = useCartStore()
   const { isCartOpen, openCart, closeCart } = useUIStore()
   const [isProcessing, setIsProcessing] = useState(false)
-
+  const { data: session } = useSession()
+  const { orderId } = useCartStore()
+ 
   const total = getTotal()
   const itemCount = getItemCount()
 
+
+  const verifyCart = async () => {
+    if (!orderId) return
+    
+    try {
+      const resp = await fetch(`/api/cart/${orderId}`)
+      const data = await resp.json()
+      
+      if (data && data.length > 0 && data[0].status === "paid") {
+        clearCart()
+        console.log('Carrito limpiado - orden pagada')
+      }
+    } catch (error) {
+      console.error('Error verificando carrito:', error)
+    }
+  }
+
+  useEffect(() => {
+    verifyCart()
+  }, [orderId])
+
+
   const handleCheckout = async () => {
+    if (!session) {
+      window.location.href = '/login'
+      return
+    }
+
     if (items.length === 0) return
 
     setIsProcessing(true)
@@ -30,7 +60,8 @@ export default function Cart() {
       })
 
       const data = await response.json()
-
+      setOrderId(data.orderId)
+      console.log('Order ID set:', data.orderId)
       if (data.error) {
         alert('Error al procesar el pago: ' + data.error)
         return

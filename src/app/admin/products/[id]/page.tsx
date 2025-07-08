@@ -22,9 +22,14 @@ interface Product {
   }
 }
 
-export default async function EditProductPage({ params }: { params: { id: string } }) {
-  // Consultar producto y categorías directamente desde el servido
+export default async function EditProductPage({ 
+  params 
+}: { 
+  params: Promise<{ id: string }> 
+}) {
+  // Ahora await params funciona correctamente
   const { id } = await params
+  
   const [product, categories] = await Promise.all([
     prisma.product.findUnique({
       where: { id: parseInt(id) },

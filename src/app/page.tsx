@@ -17,7 +17,7 @@ interface Category {
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
-  const { orderId } = useCart()
+ 
   useEffect(() => {
     const fetchCategories = async () => {
       try {

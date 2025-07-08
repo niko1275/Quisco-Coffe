@@ -92,7 +92,9 @@ export const authOptions: NextAuthOptions = {
         session.user.role = token.role as string
       }
       return session
-    }
+    },
+
+   
   }
 }
 

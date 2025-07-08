@@ -34,6 +34,31 @@ model Product {
   category Category @relation(fields: [categoryId],references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  orderItems OrderItem[]
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  userId Int?
+  user User? @relation(fields: [userId], references: [id])
+  items OrderItem[]
+  total Float
+  status String @default("pending") // pending, paid, cancelled, failed
+  paymentId String? // Mercado Pago payment ID
+  preferenceId String? // Mercado Pago preference ID
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model OrderItem {
+  id Int @id @default(autoincrement())
+  orderId Int
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId Int
+  product Product @relation(fields: [productId], references: [id])
+  quantity Int
+  price Float
+  createdAt DateTime @default(now())
 }
 
 model User {
@@ -46,6 +71,7 @@ model User {
   role          String    @default("user")
   accounts      Account[]
   sessions      Session[]
+  orders        Order[]
 }
 
 model Account {

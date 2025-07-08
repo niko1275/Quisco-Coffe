@@ -19,6 +19,7 @@ export default function CategoryCard({ id, name, slug, productCount = 0 }: Categ
             {name === 'Donas' && '🍩'}
             {name === 'Pasteles' && '🎂'}
             {name === 'Galletas' && '🍪'}
+            {name === 'Bebidas' && '🍺'}
           </span>
         </div>
         <h3 className="text-lg font-semibold text-gray-800 mb-2">{name}</h3>

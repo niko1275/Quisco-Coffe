@@ -3,13 +3,51 @@
 import { X, Minus, Plus, ShoppingCart } from 'lucide-react'
 import { useCartStore } from '@/store/cartStore'
 import { useUIStore } from '@/store/uiStore'
+import { useState } from 'react'
 
 export default function Cart() {
-  const { items, removeFromCart, updateQuantity, getTotal, getItemCount } = useCartStore()
+  const { items, removeFromCart, updateQuantity, getTotal, getItemCount, clearCart } = useCartStore()
   const { isCartOpen, openCart, closeCart } = useUIStore()
+  const [isProcessing, setIsProcessing] = useState(false)
 
   const total = getTotal()
   const itemCount = getItemCount()
+
+  const handleCheckout = async () => {
+    if (items.length === 0) return
+
+    setIsProcessing(true)
+    try {
+      const response = await fetch('/api/payment/create-preference', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: items,
+          total: total
+        })
+      })
+
+      const data = await response.json()
+
+      if (data.error) {
+        alert('Error al procesar el pago: ' + data.error)
+        return
+      }
+
+      // Redirigir al usuario a Mercado Pago
+      if (data.initPoint) {
+        window.location.href = data.initPoint
+      }
+
+    } catch (error) {
+      console.error('Error al procesar el pago:', error)
+      alert('Error al procesar el pago. Inténtalo de nuevo.')
+    } finally {
+      setIsProcessing(false)
+    }
+  }
 
   return (
     <>
@@ -79,8 +117,12 @@ export default function Cart() {
                       ${total.toFixed(2)}
                     </span>
                   </div>
-                  <button className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors">
-                    Proceder al pago
+                  <button 
+                    onClick={handleCheckout}
+                    disabled={isProcessing}
+                    className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isProcessing ? 'Procesando...' : 'Proceder al pago'}
                   </button>
                 </div>
               </>

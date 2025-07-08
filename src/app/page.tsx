@@ -82,15 +82,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Featured Products */}
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Productos Destacados</h2>
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <p className="text-gray-600 text-center">
-              Selecciona una categoría para ver nuestros productos
-            </p>
-          </div>
-        </div>
+       
       </main>
     </div>
   )

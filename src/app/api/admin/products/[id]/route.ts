@@ -34,6 +34,7 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
+
     const body = await request.json()
     const { name, price, image, description, stock, categoryId, isActive } = body
 
@@ -71,9 +72,11 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    const { id } = await params
+
     await prisma.product.delete({
       where: {
-        id: parseInt(params.id)
+        id: parseInt(id)
       }
     })
 

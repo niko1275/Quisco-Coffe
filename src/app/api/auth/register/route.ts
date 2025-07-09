@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
-
+import { omit } from 'lodash'
 export async function POST(request: NextRequest) {
   try {
     const { name, email, password } = await request.json()
@@ -46,7 +46,8 @@ export async function POST(request: NextRequest) {
     })
 
     // Remover contraseña de la respuesta
-    const { password: _password, ...userWithoutPassword } = user
+    const userWithoutPassword = omit(user, ['password'])
+    
     return NextResponse.json(
       { 
         message: "Usuario creado exitosamente",

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import CategoryCard from '@/components/CategoryCard'
 import Header from '@/components/Header'
-import { useCart } from '@/hooks/useCart'
+
 
 interface Category {
   id: number

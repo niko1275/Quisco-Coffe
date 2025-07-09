@@ -34,7 +34,7 @@ export default function Page() {
         setError("Error inesperado en el login")
       }
     } catch (error) {
-      setError("Error al iniciar sesión")
+      setError("Error al iniciar sesión"+error)
     } finally {
       setLoading(false)
     }

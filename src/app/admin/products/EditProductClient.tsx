@@ -65,7 +65,7 @@ export default function EditProductClient({ product, categories }: EditProductCl
           alert(data.error || 'Error al subir imagen')
         }
       } catch (err) {
-        alert('Error al subir imagen')
+        alert('Error al subir imagen'+err)
       }
     }
   }

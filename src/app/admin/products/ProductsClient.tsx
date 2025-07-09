@@ -75,6 +75,15 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
     }
   }
 
+  const isValidUrl = (url: string): boolean => {
+    try {
+      new URL(url)
+      return true
+    } catch {
+      return false
+    }
+  }
+
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          product.category.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -142,11 +151,19 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 h-12 w-12">
+                    {product.image && isValidUrl(product.image) ? (
                       <Image
-                        className="h-12 w-12 rounded-lg object-cover"
                         src={product.image}
                         alt={product.name}
+                        width={48}
+                        height={48}
+                        className="h-12 w-12 rounded-lg object-cover"
                       />
+                    ) : (
+                      <div className="h-12 w-12 rounded-lg bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-400 text-xs"></span>
+                      </div>
+                    )}
                     </div>
                     <div className="ml-4">
                       <div className="flex items-center">

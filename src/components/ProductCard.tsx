@@ -27,6 +27,8 @@ export default function ProductCard({ id, name, price, image }: ProductCardProps
           <Image
             src={image} 
             alt={name}
+            width={400}
+            height={400}
             className="w-full h-full object-cover"
           />
         ) : (

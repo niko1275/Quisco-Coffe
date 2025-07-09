@@ -1,34 +1,22 @@
 'use client'
 
-import { signIn, getSession } from "next-auth/react"
-import { useState, useEffect } from "react"
+import { signIn } from "next-auth/react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Shield } from "lucide-react"
 
-export default function AdminLoginPage() {
+export default function Page() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    // Verificar si ya está autenticado como admin
-    getSession().then((session) => {
-      if (session?.user?.role === "admin") {
-        router.push("/admin")
-      }
-    })
-  }, [router])
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
     setLoading(true)
-
-    console.log("Intentando login con:", { email, password: "***" })
-
     try {
       // Usar signIn con redirección automática
       const result = await signIn("credentials", {
@@ -38,24 +26,16 @@ export default function AdminLoginPage() {
         callbackUrl: "/admin"
       })
 
-      console.log("Resultado del signIn:", result)
-
       if (result?.error) {
-        console.error("Error en signIn:", result.error)
         setError("Credenciales incorrectas")
-        setLoading(false)
       } else if (result?.ok) {
-        console.log("SignIn exitoso, redirigiendo...")
-        // Redirección directa
         router.push("/admin")
       } else {
-        console.log("Resultado inesperado:", result)
         setError("Error inesperado en el login")
-        setLoading(false)
       }
     } catch (error) {
-      console.error("Error en handleSubmit:", error)
       setError("Error al iniciar sesión")
+    } finally {
       setLoading(false)
     }
   }
@@ -72,13 +52,11 @@ export default function AdminLoginPage() {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Volver al sitio
           </Link>
-          
           <div className="flex justify-center mb-4">
             <div className="bg-orange-100 p-3 rounded-full">
               <Shield className="w-8 h-8 text-orange-600" />
             </div>
           </div>
-          
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             Panel de Administración
           </h2>
@@ -86,7 +64,6 @@ export default function AdminLoginPage() {
             Acceso exclusivo para administradores
           </p>
         </div>
-
         {/* Form */}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
@@ -94,7 +71,6 @@ export default function AdminLoginPage() {
               {error}
             </div>
           )}
-
           <div className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -112,7 +88,6 @@ export default function AdminLoginPage() {
                 placeholder="admin@quioscocafe.com"
               />
             </div>
-
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Contraseña
@@ -130,7 +105,6 @@ export default function AdminLoginPage() {
               />
             </div>
           </div>
-
           <div>
             <button
               type="submit"
@@ -140,22 +114,21 @@ export default function AdminLoginPage() {
               {loading ? "Verificando..." : "Acceder al Panel"}
             </button>
           </div>
-
-                  <div className="text-center">
-          <p className="text-sm text-gray-600">
-            ¿Eres cliente?{" "}
-            <Link href="/login" className="font-medium text-orange-600 hover:text-orange-500">
-              Inicia sesión aquí
-            </Link>
-          </p>
-          <div className="mt-4 p-3 bg-gray-100 rounded-md">
-            <p className="text-xs text-gray-600">
-              <strong>Credenciales de prueba:</strong><br/>
-              Email: pepe@gmail.com<br/>
-              Contraseña: 123456
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              ¿Eres cliente?{" "}
+              <Link href="/login" className="font-medium text-orange-600 hover:text-orange-500">
+                Inicia sesión aquí
+              </Link>
             </p>
+            <div className="mt-4 p-3 bg-gray-100 rounded-md">
+              <p className="text-xs text-gray-600">
+                <strong>Credenciales de prueba:</strong><br/>
+                Email: pepe@gmail.com<br/>
+                Contraseña: 123456
+              </p>
+            </div>
           </div>
-        </div>
         </form>
       </div>
     </div>

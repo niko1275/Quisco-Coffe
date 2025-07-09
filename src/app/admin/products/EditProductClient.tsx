@@ -46,16 +46,27 @@ export default function EditProductClient({ product, categories }: EditProductCl
     isActive: product.isActive
   })
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const result = e.target?.result as string
-        setImagePreview(result)
-        setFormData(prev => ({ ...prev, image: result }))
+      // Subir a S3 vía API route
+      const formData = new FormData()
+      formData.append('file', file)
+      try {
+        const res = await fetch('/api/admin/upload', {
+          method: 'POST',
+          body: formData,
+        })
+        const data = await res.json()
+        if (res.ok && data.url) {
+          setImagePreview(data.url)
+          setFormData(prev => ({ ...prev, image: data.url }))
+        } else {
+          alert(data.error || 'Error al subir imagen')
+        }
+      } catch (err) {
+        alert('Error al subir imagen')
       }
-      reader.readAsDataURL(file)
     }
   }
 
@@ -214,6 +225,8 @@ export default function EditProductClient({ product, categories }: EditProductCl
                 <Image
                   src={imagePreview}
                   alt="Preview"
+                  width={400}
+                  height={400}
                   className="w-32 h-32 object-cover rounded-lg border"
                 />
                 <button
@@ -222,7 +235,7 @@ export default function EditProductClient({ product, categories }: EditProductCl
                     setImagePreview('')
                     setFormData(prev => ({ ...prev, image: '' }))
                   }}
-                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                  className="absolute top-1  bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
                 >
                   <X className="w-4 h-4" />
                 </button>

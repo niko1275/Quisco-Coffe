@@ -62,6 +62,10 @@ export default function AdminLayout({
     )
   }
 
+  if (pathname === "/admin/login") {
+    return <>{children}</>
+  }
+
   // Si no está autenticado, no mostrar nada (se redirigirá)
   if (status === "unauthenticated") {
     return null

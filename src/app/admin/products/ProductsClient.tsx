@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Plus, Edit, Trash2, Search, Package } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface Product {
   id: number
@@ -141,7 +142,7 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 h-12 w-12">
-                      <img
+                      <Image
                         className="h-12 w-12 rounded-lg object-cover"
                         src={product.image}
                         alt={product.name}

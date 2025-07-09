@@ -1,7 +1,7 @@
 "use server"
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { client } from '../create-preference/route'
+import { client } from '@/lib/mercadopago'
 import { Payment } from 'mercadopago'
 
 export async function POST(request: NextRequest) {

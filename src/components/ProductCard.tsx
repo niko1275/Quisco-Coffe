@@ -2,6 +2,7 @@
 
 import { Plus } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
+import Image from 'next/image'
 
 interface ProductCardProps {
   id: number
@@ -23,7 +24,7 @@ export default function ProductCard({ id, name, price, image }: ProductCardProps
       {/* Product Image */}
       <div className="h-48 bg-gray-200 flex items-center justify-center overflow-hidden">
         {image && image.startsWith('http') ? (
-          <img 
+          <Image
             src={image} 
             alt={name}
             className="w-full h-full object-cover"

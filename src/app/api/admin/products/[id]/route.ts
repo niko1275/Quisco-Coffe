@@ -1,6 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
+
+interface UpdateProductData {
+  name?: string
+  price?: number
+  image?: string
+  description?: string | null
+  stock?: number
+  categoryId?: number
+  isActive?: boolean
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -31,14 +42,14 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> } // ← Cambio aquí
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params
     const body = await request.json()
     const { name, price, image, description, stock, categoryId, isActive } = body
 
-    const updateData: any = {}
+    const updateData: UpdateProductData = {}
     if (name !== undefined) updateData.name = name
     if (price !== undefined) updateData.price = parseFloat(price)
     if (image !== undefined) updateData.image = image
@@ -77,7 +88,6 @@ export async function DELETE(
     await prisma.product.delete({
       where: { id: parseInt(id) }
     })
-
 
     return NextResponse.json({ message: 'Producto eliminado exitosamente' })
   } catch (error) {

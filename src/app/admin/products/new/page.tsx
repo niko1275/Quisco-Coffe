@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, Save, X } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface Category {
   id: number
@@ -208,7 +209,7 @@ export default function NewProductPage() {
 
             {imagePreview && (
               <div className="relative">
-                <img
+                <Image
                   src={imagePreview}
                   alt="Preview"
                   className="w-32 h-32 object-cover rounded-lg border"

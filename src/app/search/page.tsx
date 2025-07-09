@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Header from '@/components/Header'
 import ProductCard from '@/components/ProductCard'
@@ -22,7 +22,7 @@ interface Product {
   }
 }
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams()
   const query = searchParams.get('q') || ''
   const [products, setProducts] = useState<Product[]>([])
@@ -145,5 +145,23 @@ export default function SearchPage() {
         )}
       </main>
     </div>
+  )
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Buscando productos...</p>
+          </div>
+        </div>
+      </div>
+    }>
+      <SearchPageContent />
+    </Suspense>
   )
 }

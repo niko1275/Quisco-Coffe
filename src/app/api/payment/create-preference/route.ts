@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { MercadoPagoConfig, Preference } from 'mercadopago'
+import { Preference } from 'mercadopago'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-
+import { client } from '@/lib/mercadopago'
 
 interface CartItem {
   id: number
@@ -16,14 +16,6 @@ interface PaymentRequest {
   items: CartItem[]
   total: number
 }
-
-// Configurar Mercado Pago
-export const client = new MercadoPagoConfig({ 
-  accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN || 'test-token',
-  options: {
-    timeout: 5000,
-  }
-})
 
 export async function POST(request: NextRequest) {
   try {
@@ -92,7 +84,6 @@ export async function POST(request: NextRequest) {
       data: { preferenceId: response.external_reference }
     })
 
-  
     return NextResponse.json({
       preferenceId: response.id,
       initPoint: response.init_point,

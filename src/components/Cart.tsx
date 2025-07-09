@@ -17,26 +17,27 @@ export default function Cart() {
   const itemCount = getItemCount()
 
 
-  const verifyCart = async () => {
-    if (!orderId) return
-    
-    try {
-      const resp = await fetch(`/api/cart/${orderId}`)
-      const data = await resp.json()
-      
-      if (data && data.length > 0 && data[0].status === "paid") {
-        clearCart()
-        console.log('Carrito limpiado - orden pagada')
-      }
-    } catch (error) {
-      console.error('Error verificando carrito:', error)
-    }
-  }
-
+ 
   useEffect(() => {
+    const verifyCart = async () => {
+      if (!orderId) return
+      
+      try {
+        const resp = await fetch(`/api/cart/${orderId}`)
+        const data = await resp.json()
+        
+        if (data && data.length > 0 && data[0].status === "paid") {
+          clearCart()
+          console.log('Carrito limpiado - orden pagada')
+        }
+      } catch (error) {
+        console.error('Error verificando carrito:', error)
+      }
+    }
+  
     verifyCart()
-  }, [orderId,verifyCart])
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderId]) // Solo orderId
 
   const handleCheckout = async () => {
     if (!session) {

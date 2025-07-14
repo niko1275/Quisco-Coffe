@@ -11,18 +11,22 @@ export default function Header() {
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+      <div className="container mx-auto px-2 sm:px-4 py-2 sm:py-4">
+        <div className="flex flex-wrap items-center justify-between gap-y-2">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-orange-600">
+          <Link href="/" className="text-2xl font-bold text-orange-600 flex-shrink-0">
             QuioscoCafé
           </Link>
 
-          {/* Search Bar */}
-          <SearchBar />
+          {/* Search Bar (oculto en mobile) */}
+          <div className="w-full order-3 sm:order-none sm:w-auto sm:block">
+            <div className="sm:block hidden">
+              <SearchBar />
+            </div>
+          </div>
 
           {/* Cart y Auth */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
             <Cart />
             
             {status === "loading" ? (
@@ -59,6 +63,10 @@ export default function Header() {
               </button>
             )}
           </div>
+        </div>
+        {/* SearchBar visible solo en mobile, debajo del header */}
+        <div className="block sm:hidden mt-2">
+          <SearchBar />
         </div>
       </div>
     </header>

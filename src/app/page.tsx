@@ -55,11 +55,11 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-2 sm:px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            Bienvenido a QuioscoCafé xd
+            Bienvenido a QuioscoCafé
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Descubre nuestra deliciosa selección de café, donas, galletas y más. 
@@ -70,7 +70,7 @@ export default function Home() {
         {/* Categories Grid */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Nuestras Categorías</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.map((category) => (
               <CategoryCard
                 key={category.id}

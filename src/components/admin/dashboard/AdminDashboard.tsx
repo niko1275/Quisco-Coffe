@@ -6,6 +6,7 @@ import {
   Tag, 
   Users, 
   ShoppingCart, 
+  TrendingUp,
   DollarSign,
   Eye
 } from 'lucide-react'
@@ -30,8 +31,6 @@ export default function AdminDashboard() {
     views: 0
   })
   const [loading, setLoading] = useState(true)
-
-  
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -183,7 +182,7 @@ export default function AdminDashboard() {
             <div className="space-y-3">
               <Link href={'/admin/products/new'}>
              
-              <button className="w-full mb-10 flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700">
+              <button className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700">
                 <Package className="h-4 w-4 mr-2" />
                 Agregar Producto
               </button>
@@ -192,7 +191,10 @@ export default function AdminDashboard() {
                 <Tag className="h-4 w-4 mr-2" />
                 Crear Categoría
               </button>
-             
+              <button className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                <TrendingUp className="h-4 w-4 mr-2" />
+                Ver Reportes
+              </button>
             </div>
           </div>
         </div>

@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, Search, Package } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePagination } from '@/hooks/usePagination'
+import Pagination from '@/components/Pagination'
 
 interface Product {
   id: number
@@ -27,6 +29,7 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
   const [products, setProducts] = useState<Product[]>(initialProducts)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterActive, setFilterActive] = useState<'all' | 'active' | 'inactive'>('all')
+  const [isChangingPage, setIsChangingPage] = useState(false)
 
   const handleDelete = async (productId: number) => {
     if (!confirm('¿Estás seguro de que quieres eliminar este producto?')) {
@@ -95,6 +98,29 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
     return matchesSearch && matchesFilter
   })
 
+  const {currentPage , goToPage,  paginatedItems,  totalPages, resetToFirstPage} = usePagination({
+    items: filteredProducts,
+    itemsPerPage: 12
+  })
+
+  // Resetear a la primera página cuando cambien los filtros
+  useEffect(() => {
+    resetToFirstPage()
+  }, [searchTerm, filterActive, resetToFirstPage])
+
+  // Función para manejar el cambio de página
+  const handlePageChange = (page: number) => {
+    setIsChangingPage(true)
+    goToPage(page)
+    // Scroll suave hacia arriba para mejor UX
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    
+    // Simular un pequeño delay para mostrar el cambio
+    setTimeout(() => {
+      setIsChangingPage(false)
+    }, 100)
+  }
+
   return (
     <div>
       <div className="sm:flex sm:items-center sm:justify-between mb-8">
@@ -143,17 +169,33 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
       </div>
 
       {/* Tabla de productos */}
-      <div className="bg-white shadow overflow-hidden sm:rounded-md">
+      <div className="bg-white shadow overflow-hidden sm:rounded-md relative">
+        {/* Overlay de carga */}
+        {isChangingPage && (
+          <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-10">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+          </div>
+        )}
+        
+        {/* Información de paginación */}
+        {filteredProducts.length > 0 && (
+          <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
+            <p className="text-sm text-gray-700">
+              Mostrando {((currentPage - 1) * 12) + 1} a {Math.min(currentPage * 12, filteredProducts.length)} de {filteredProducts.length} productos
+            </p>
+          </div>
+        )}
+        
         <ul className="divide-y divide-gray-200">
-          {filteredProducts.map((product) => (
+          {paginatedItems.map((product) => (
             <li key={product.id}>
               <div className="px-4 py-4 sm:px-6">
-                <div className="flex items-center justify-between">
+                <div className="flex  sm:justify-between flex-col sm:flex-row ">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 h-12 w-12">
                     {product.image && isValidUrl(product.image) ? (
                       <Image
-                        src={product.image}
+                        src={product.image} 
                         alt={product.name}
                         width={48}
                         height={48}
@@ -192,10 +234,10 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex  items-center space-x-2">
                     <button
                       onClick={() => handleToggleActive(product.id, product.isActive)}
-                      className={`px-3 py-1 text-xs font-medium rounded-md ${
+                      className={`px-3 py-1 ml-15 text-xs font-medium rounded-md ${
                         product.isActive
                           ? 'text-red-700 bg-red-100 hover:bg-red-200'
                           : 'text-green-700 bg-green-100 hover:bg-green-200'
@@ -222,6 +264,17 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
           ))}
         </ul>
       </div>
+
+      {/* Paginación */}
+      {totalPages > 1 && (
+        <div className="mt-6">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      )}
 
       {filteredProducts.length === 0 && (
         <div className="text-center py-12">

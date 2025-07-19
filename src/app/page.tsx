@@ -9,6 +9,7 @@ interface Category {
   id: number
   name: string
   slug: string
+  image:string
   _count: {
     products: number
   }
@@ -77,6 +78,7 @@ export default function Home() {
                 id={category.id}
                 name={category.name}
                 slug={category.slug}
+                image={category.image}
                 productCount={category._count.products}
               />
             ))}

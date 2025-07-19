@@ -11,7 +11,9 @@ export async function getCategories() {
         }
       }
     })
+    console.log("categorias "+JSON.stringify(categories))
     return categories
+
   } catch (error) {
     console.error('Error fetching categories:', error)
     return []

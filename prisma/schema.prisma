@@ -19,6 +19,7 @@ model Category{
   id Int @id @default(autoincrement())
   name String
   slug String @unique
+  image String? // Campo opcional para la imagen de la categoría
   products Product[]
 }
 
@@ -59,6 +60,7 @@ model OrderItem {
   quantity Int
   price Float
   createdAt DateTime @default(now())
+  
 }
 
 model User {

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 
 interface UsePaginationProps<T> {
   items: T[]
@@ -19,27 +19,34 @@ export function usePagination<T>({ items, itemsPerPage, initialPage = 1 }: UsePa
     return Math.ceil(items.length / itemsPerPage)
   }, [items.length, itemsPerPage])
 
-  const goToPage = (page: number) => {
+  const goToPage = useCallback((page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page)
     }
-  }
+  }, [totalPages])
 
-  const nextPage = () => {
+  const nextPage = useCallback(() => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1)
     }
-  }
+  }, [currentPage, totalPages])
 
-  const prevPage = () => {
+  const prevPage = useCallback(() => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
     }
-  }
+  }, [currentPage])
 
-  const resetToFirstPage = () => {
+  const resetToFirstPage = useCallback(() => {
     setCurrentPage(1)
-  }
+  }, [])
+
+  // Resetear a la primera página si la página actual es mayor que el total de páginas
+  useMemo(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(1)
+    }
+  }, [currentPage, totalPages])
 
   return {
     currentPage,

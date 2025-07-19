@@ -6,6 +6,7 @@ import { ArrowLeft, Save, X } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
+
 interface Category {
   id: number
   name: string
@@ -45,6 +46,8 @@ export default function EditProductClient({ product, categories }: EditProductCl
     categoryId: product.categoryId.toString(),
     isActive: product.isActive
   })
+
+ 
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]

@@ -8,13 +8,11 @@ import {
   Home, 
   Package, 
   Tag, 
-  Users, 
-  Settings, 
   LogOut, 
   Menu, 
   X,
   ShoppingCart,
-  BarChart3
+
 } from "lucide-react"
 
 export default function AdminLayout({
@@ -31,10 +29,8 @@ export default function AdminLayout({
     { name: 'Dashboard', href: '/admin', icon: Home },
     { name: 'Productos', href: '/admin/products', icon: Package },
     { name: 'Categorías', href: '/admin/categories', icon: Tag },
-    { name: 'Usuarios', href: '/admin/users', icon: Users },
-    { name: 'Pedidos', href: '/admin/orders', icon: ShoppingCart },
-    { name: 'Estadísticas', href: '/admin/stats', icon: BarChart3 },
-    { name: 'Configuración', href: '/admin/settings', icon: Settings },
+    { name: 'Ventas', href: '/admin/orders', icon: ShoppingCart },
+
   ]
 
   const handleLogout = () => {
@@ -79,8 +75,8 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Sidebar para móviles */}
-      <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
+      <div className={`fixed inset-0 z-1000 shadow-2xl lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
+        <div className="fixed inset-0  bg-opacity-75" onClick={() => setSidebarOpen(false)} />
         <div className="fixed inset-y-0 left-0 flex w-64 flex-col bg-white">
           <div className="flex h-16 items-center justify-between px-4">
             <h1 className="text-xl font-bold text-gray-900">Admin Panel</h1>

@@ -119,8 +119,8 @@ export default function CategoryClient({ categorias }: CategoryClientProps) {
           {paginatedItems.map((categoria) => (
             <li key={categoria.id}>
               <div className="px-4 py-4 sm:px-6">
-                <div className="flex sm:justify-between flex-col sm:flex-row">
-                  <div className="flex items-center">
+                <div className="flex sm:justify-between flex-row sm:flex-row">
+                  <div className="flex items-center ">
                     <div className="flex-shrink-0 h-12 w-12">
                       {categoria.image && isValidUrl(categoria.image) ? (
                         <Image
@@ -148,7 +148,7 @@ export default function CategoryClient({ categorias }: CategoryClientProps) {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2 mt-2 sm:mt-0">
+                  <div className="flex items-center space-x-2 mt-2 ml-10 sm:mt-0 ">
                     <Link
                       href={`/admin/categories/${categoria.id}`}
                       className="text-orange-600 hover:text-orange-900"

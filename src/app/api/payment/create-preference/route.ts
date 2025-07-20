@@ -64,9 +64,9 @@ export async function POST(request: NextRequest) {
         currency_id: 'ARS'
       })),
       back_urls: {
-        success: `${process.env.NEXTAUTH_URL || 'https://6b1f49c0d158.ngrok-free.app'}/payment/success?orderId=${order.id}`,
-        failure: `${process.env.NEXTAUTH_URL || 'https://6b1f49c0d158.ngrok-free.app'}/payment/failure?orderId=${order.id}`,
-        pending: `${process.env.NEXTAUTH_URL || 'https://6b1f49c0d158.ngrok-free.app'}/payment/pending?orderId=${order.id}`
+        success: `${process.env.NEXTAUTH_URL || 'https://quisco-coffe.vercel.app'}/payment/success?orderId=${order.id}`,
+        failure: `${process.env.NEXTAUTH_URL || 'https://quisco-coffe.vercel.app'}/payment/failure?orderId=${order.id}`,
+        pending: `${process.env.NEXTAUTH_URL || 'https://quisco-coffe.vercel.app'}/payment/pending?orderId=${order.id}`
       },
       external_reference: order.id.toString()
     }

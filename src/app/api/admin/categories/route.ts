@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { revalidatePath } from 'next/cache'
 
 export async function GET() {
   try {
@@ -58,6 +59,8 @@ export async function POST(request: NextRequest) {
         image: image || null
       }
     })
+
+    revalidatePath('/admin/categories')
 
     return NextResponse.json(newCategory, { status: 201 })
   } catch (error) {

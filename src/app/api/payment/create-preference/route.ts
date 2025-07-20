@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
         title: item.name,
         quantity: item.quantity,
         unit_price: parseInt(item.price.toString()),
-        currency_id: 'ARS'
+        currency_id: 'CLP'
       })),
       back_urls: {
         success: `${process.env.NEXTAUTH_URL || 'https://quisco-coffe.vercel.app'}/payment/success?orderId=${order.id}`,

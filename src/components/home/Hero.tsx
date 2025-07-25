@@ -19,11 +19,11 @@ export const Hero = () => {
       </video>
 
       {/* Overlay negro con transparencia */}
-      <div className='absolute inset-0 bg-black/80 z-10'></div>
+      <div className='absolute inset-0 bg-black/80'></div>
 
 
       {/* Contenido encima del video */}
-      <div className='relative z-20 flex flex-col items-center text-white p-10 xl:mx-72 mx-8 mt-40'>
+      <div className='relative z-20 flex flex-col items-center text-white p-10 xl:mx-72 mx-8 mt-40 '>
 
        
 

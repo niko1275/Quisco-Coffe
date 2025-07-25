@@ -8,9 +8,7 @@ export const Hero = () => {
        <Header/>
     <div className='relative  h-screen overflow-hidden bg-black'>
       {/* Video de fondo */}
-      <video
-        autoPlay
-        loop
+      <video  
         muted
         className='w-full h-full absolute top-0 left-0 object-cover'
 

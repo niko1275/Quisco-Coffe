@@ -20,8 +20,8 @@ export const Explore = () => {
                   Explora Nuestras Donas
                 </h3>
                 <p className="text-gray-400">
-              Suaves, glaseadas y siempre frescas. 
-              Nuestras donas son el complemento dulce ideal para tu café o simplemente para alegrarte el día.
+                Suaves, glaseadas y siempre frescas. 
+                Nuestras donas son el complemento dulce ideal para tu café o simplemente para alegrarte el día.
                 </p>
                </div>
                 <div className="">

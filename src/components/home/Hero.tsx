@@ -6,7 +6,7 @@ export const Hero = () => {
   return (
     <>
        <Header/>
-    <div className='relative h-[90dvh] sm:h-screen overflow-hidden'>
+    <div className='relative  h-screen overflow-hidden'>
       {/* Video de fondo */}
       <video
         autoPlay
@@ -27,7 +27,7 @@ export const Hero = () => {
 
        
 
-        <span className='font-cormorant text-7xl text-orange-500'>
+        <span className='font-cormorant text-5xl sm:text-7xl text-orange-500 mt-0 sm:mt-20'>
           Quiosco<span className='text-orange-300'>Coffe</span>
         </span>
         <p className=' text-justify m-10 font-playwright'>
@@ -37,7 +37,7 @@ export const Hero = () => {
         <Link href='/category'>
       
         <button className='bg-orange-500 p-4 font-bold hover:bg-amber-700 rounded-sm'>
-          Nuestro Menu 
+           Descubre Nuestro Menu 
         </button>
         </Link>
       

@@ -5,18 +5,18 @@ import { useCartStore } from '@/store/cartStore'
 import { useUIStore } from '@/store/uiStore'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
-
+import { useRouter } from 'next/navigation';
 export default function Cart() {
-  const { items, updateQuantity, getTotal, getItemCount ,setOrderId,clearCart} = useCartStore()
+  const { items, updateQuantity, getTotal, getItemCount ,clearCart} = useCartStore()
   const { isCartOpen, openCart, closeCart } = useUIStore()
-  const [isProcessing, setIsProcessing] = useState(false)
+  const [isProcessing] = useState(false)
   const { data: session } = useSession()
   const { orderId } = useCartStore()
  
   const total = getTotal()
   const itemCount = getItemCount()
 
-
+  const router = useRouter()
  
   useEffect(() => {
     const verifyCart = async () => {
@@ -44,41 +44,10 @@ export default function Cart() {
       window.location.href = '/login'
       return
     }
-
+    closeCart()
+    router.push('/cart')
     if (items.length === 0) return
-
-    setIsProcessing(true)
-    try {
-      const response = await fetch('/api/payment/create-preference', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          items: items,
-          total: total
-        })
-      })
-
-      const data = await response.json()
-      setOrderId(data.orderId)
-      console.log('Order ID set:', data.orderId)
-      if (data.error) {
-        alert('Error al procesar el pago: ' + data.error)
-        return
-      }
-
-      // Redirigir al usuario a Mercado Pago
-      if (data.initPoint) {
-        window.location.href = data.initPoint
-      }
-
-    } catch (error) {
-      console.error('Error al procesar el pago:', error)
-      alert('Error al procesar el pago. Inténtalo de nuevo.')
-    } finally {
-      setIsProcessing(false)
-    }
+   
   }
 
   return (
@@ -154,7 +123,7 @@ export default function Cart() {
                     disabled={isProcessing}
                     className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isProcessing ? 'Procesando...' : 'Proceder al pago'}
+                   Ver Carrito
                   </button>
                 </div>
               </>

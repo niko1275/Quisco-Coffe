@@ -68,7 +68,8 @@ export async function POST(request: NextRequest) {
         failure: `${process.env.NEXTAUTH_URL || 'https://quisco-coffe.vercel.app'}/payment/failure?orderId=${order.id}`,
         pending: `${process.env.NEXTAUTH_URL || 'https://quisco-coffe.vercel.app'}/payment/pending?orderId=${order.id}`
       },
-      external_reference: order.id.toString()
+      external_reference: order.id.toString(),
+
     }
 
     console.log('Creating preference with:', JSON.stringify(preference, null, 2))

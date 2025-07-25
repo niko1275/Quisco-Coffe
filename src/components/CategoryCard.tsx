@@ -31,7 +31,7 @@ export default function CategoryCard({  name, slug, productCount = 0 ,image}: Ca
           </div>
         )}
         </div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">{name}</h3>
+        <h3 className="text-lg font-semibold text-gray-800 mb-2 font-serif">{name}</h3>
         <p className="text-sm  bg-gradient-to-r from-orange-300 to-orange-500 w-[30%] font-bold rounded-full text-white mx-auto">{productCount} productos</p>
       </div>
     </Link>

@@ -66,7 +66,7 @@ export default function LoginPage() {
             Iniciar Sesión
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Accede a tu cuenta de QuioscoCafé
+            Accede a tu cuenta de QuioscoCoffe
           </p>
         </div>
 

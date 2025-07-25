@@ -15,7 +15,7 @@ export default function Header() {
         <div className="flex flex-wrap items-center justify-between gap-y-2">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold text-orange-600 flex-shrink-0">
-            QuioscoCafé
+            QuioscoCoffe
           </Link>
 
           {/* Search Bar (oculto en mobile) */}

@@ -16,7 +16,7 @@ export default function ProductCard({ id, name, price, image }: ProductCardProps
   const { addToCartAndOpen } = useCart()
 
   const handleAddToCart = () => {
-    addToCartAndOpen({ id, name, price })
+    addToCartAndOpen({ id, name, price,image })
   }
 
   return (

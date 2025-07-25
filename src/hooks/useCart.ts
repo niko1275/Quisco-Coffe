@@ -5,7 +5,8 @@ export const useCart = () => {
   const cartStore = useCartStore()
   const uiStore = useUIStore()
 
-  const addToCartAndOpen = (product: { id: number; name: string; price: number }) => {
+  const addToCartAndOpen = (product: { id: number; name: string; price: number,image:string }) => {
+    console.log('Adding to cart:', product)
     cartStore.addToCart(product)
     uiStore.openCart()
   }

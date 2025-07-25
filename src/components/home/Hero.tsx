@@ -6,20 +6,21 @@ export const Hero = () => {
   return (
     <>
        <Header/>
-    <div className='relative  h-screen overflow-hidden'>
+    <div className='relative  h-screen overflow-hidden bg-black'>
       {/* Video de fondo */}
       <video
         autoPlay
         loop
         muted
         className='w-full h-full absolute top-0 left-0 object-cover'
+
       >
         <source src='/coffe.mp4' type='video/mp4' />
         Your browser does not support the video tag.
       </video>
 
       {/* Overlay negro con transparencia */}
-      <div className='absolute inset-0 bg-black/80'></div>
+      <div className='absolute w-full h-full bg-black/80'></div>
 
 
       {/* Contenido encima del video */}

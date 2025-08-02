@@ -11,7 +11,8 @@ export const Hero = () => {
       <video  
         muted
         className='w-full h-full absolute top-0 left-0 object-cover'
-
+        autoPlay
+        loop
       >
         <source src='/coffe.mp4' type='video/mp4' />
         Your browser does not support the video tag.
@@ -35,7 +36,7 @@ export const Hero = () => {
 
         <Link href='/category'>
       
-        <button className='bg-orange-500 p-4 font-bold hover:bg-amber-700 rounded-sm'>
+        <button className='bg-orange-500/100 p-4 font-bold hover:bg-amber-700 rounded-sm'>
            Descubre Nuestro Menu 
         </button>
         </Link>

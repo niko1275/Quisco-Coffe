@@ -6,7 +6,7 @@ import React from 'react'
 
 export default function page () {
   return (
-    <div className='h-full overflow-x-hidden'>
+    <div className='h-full'>
        
         <Hero/>
         <Explore/>

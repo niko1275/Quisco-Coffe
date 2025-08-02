@@ -19,7 +19,7 @@ export const Explore = () => {
                 <h3 className="font-playwright text-black font-bold ">
                   Explora Nuestras Donas
                 </h3>
-                <p className="text-gray-400">
+                <p className="text-gray-400 p-4">
                 Suaves, glaseadas y siempre frescas. 
                 Nuestras donas son el complemento dulce ideal para tu café o simplemente para alegrarte el día.
                 </p>
@@ -31,7 +31,7 @@ export const Explore = () => {
                   <h3 className="font-playwright text-black font-bold">
                     Explora Nuestros Cafés
                   </h3>
-                  <p className="text-gray-400">
+                  <p className="text-gray-400 p-4">
                    Aromático, intenso y preparado con dedicación. 
                    Nuestro café realza el sabor de cada dona, pastel o hamburguesa. ¡Un clásico infaltable!
                   </p>
@@ -62,7 +62,7 @@ export const Explore = () => {
                   <h3 className="font-playwright text-black font-bold">
                     Explora Nuestros Pasteles
                   </h3>
-                 <p className="text-gray-400">
+                 <p className="text-gray-400 p-4">
                   Hechos con ingredientes de calidad y mucho cariño.
                    Nuestros pasteles son perfectos para compartir, celebrar o simplemente disfrutar sin motivo.
 
@@ -74,9 +74,9 @@ export const Explore = () => {
                       <Hamburger className="w-12 h-12 text-orange-300" />
                     </div>
                     <h3 className="font-playwright text-black font-bold">
-                      Hamburguesas
+                     Explora Nuestras Hamburguesas
                     </h3>
-                   <p className="text-gray-400">
+                   <p className="text-gray-400 p-4">
                      Jugosas, caseras y llenas de sabor.
                       Nuestras hamburguesas combinan increíble con un café fuerte o una dona dulce de postre. ¿Ya las probaste?
                     </p>

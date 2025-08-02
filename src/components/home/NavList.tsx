@@ -1,5 +1,6 @@
 import React, { JSX } from 'react'
 import {motion} from 'framer-motion'
+import Link from 'next/link';
 
 const links = [
     { name: 'Productos', href: '/category' },
@@ -58,11 +59,14 @@ export const NavList = () => {
 
         {
         links.map((link, index) => (
+        <Link href={link.href} key={index} className='relative group'>
+          
          <div className='flex overflow-hidden
          hover:text-white transition-all
          ' key={index}>
             {getCard(link.name)}
          </div>
+           </Link>
         ))
         }        
     </ul>
